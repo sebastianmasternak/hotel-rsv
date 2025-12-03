@@ -1,0 +1,69 @@
+<app-header></app-header>
+<div class="admin-container">
+    <h1>Admin Dashboard</h1>
+
+    <section class="admin-section">
+        <h2>Manage Rooms</h2>
+
+        <div class="admin-actions">
+            <h3>Add New Room</h3>
+            <div class="add-room-form">
+                <input type="text" [(ngModel)]="newRoom.number" placeholder="Room Number (e.g. 101)"
+                    class="form-input" />
+                <select [(ngModel)]="newRoom.roomTypeId" class="form-select">
+                    <option *ngFor="let type of roomTypes" [ngValue]="type.id">
+                        {{ type.name }} ({{ type.pricePerNight }} PLN)
+                    </option>
+                </select>
+                <button (click)="addRoom()" class="btn-primary">Add Room</button>
+            </div>
+        </div>
+
+        <div class="room-list">
+            <h3>Room List</h3>
+            <div class="room-card" *ngFor="let room of rooms">
+                <div class="room-info">
+                    <span class="room-name">Room {{ room.name }}</span><br>
+                    <span class="room-type">{{ room.type }}</span><br>
+                    <span class="room-price">{{ room.price }} PLN</span><br>
+                </div>
+                <button (click)="removeRoom(room.id)" class="btn-danger">Remove</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Manage Reservations</h2>
+        <div class="reservation-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let res of reservations">
+                        <td>{{ res.guestName }}</td>
+                        <td>{{ res.roomName }}</td>
+                        <td>{{ res.checkInDate | date }}</td>
+                        <td>{{ res.checkOutDate | date }}</td>
+                        <td>
+                            <span [class.canceled]="res.status === 'canceled'">{{ res.status }}</span>
+                        </td>
+                        <td>
+                            <button *ngIf="res.status !== 'canceled'" class="warning-btn"
+                                (click)="cancelReservation(res.id)">
+                                Cancel
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

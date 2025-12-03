@@ -1,0 +1,11 @@
+<div class="date-input-card">
+    <div class="input-group">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin" [(ngModel)]="checkinDate" class="date-field" />
+    </div>
+    <div class="input-group">
+        <label for="checkout">Check-out</label>
+        <input type="date" id="checkout" [(ngModel)]="checkoutDate" class="date-field" />
+    </div>
+    <button (click)="onSearch()" class="btn-search">Search</button>
+</div>

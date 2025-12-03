@@ -1,0 +1,64 @@
+<div class="reservation-search-card" *ngIf="searchData">
+    <h2 class="search-title">You looking for a room in those dates:</h2>
+    <div class="search-details">
+        <div class="detail-item">
+            <span class="label">Check-in:</span>
+            <span class="value">{{ searchData.checkin }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Check-out:</span>
+            <span class="value">{{ searchData.checkout }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="available-rooms" *ngIf="availableRooms.length > 0">
+    <h3>Available Rooms</h3>
+    <div class="room-list">
+        <div class="room-card" *ngFor="let room of availableRooms">
+            <div class="room-info">
+                <span class="room-number">Room {{ room.name }}</span>
+                <span class="room-type">{{ room.type }}</span>
+                <span class="room-price">{{ room.price }} PLN / night</span>
+            </div>
+            <button class="btn-reserve" (click)="reserveRoom(room)">Reserve</button>
+        </div>
+    </div>
+</div>
+
+<div class="no-rooms" *ngIf="searchData && availableRooms.length === 0">
+    <p>No rooms available for the selected dates.</p>
+</div>
+
+<!-- Guest Details Modal -->
+<div class="modal-overlay" *ngIf="selectedRoom">
+    <div class="modal-content">
+        <h3>Complete Reservation</h3>
+        <p>Room: {{ selectedRoom.name }} ({{ selectedRoom.type }})</p>
+        <p>Price: {{ selectedRoom.price }} PLN / night</p>
+
+        <div class="guest-form">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" [(ngModel)]="guest.firstName" class="form-input">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" [(ngModel)]="guest.lastName" class="form-input">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="guest.email" class="form-input">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" [(ngModel)]="guest.phoneNumber" class="form-input">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" (click)="cancelReservation()">Cancel</button>
+                <button class="btn-confirm" (click)="confirmReservation()">Confirm Reservation</button>
+            </div>
+        </div>
+    </div>
+</div>
