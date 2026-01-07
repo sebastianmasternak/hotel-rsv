@@ -1,0 +1,27 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace backend.Models
+{
+    public class Guest
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [StringLength(256, ErrorMessage = "Email cannot be longer than 256 characters.")]
+        public string Email { get; set; }
+
+        [Phone(ErrorMessage = "Invalid phone number.")]
+        [StringLength(20, ErrorMessage = "Phone number cannot be longer than 20 characters.")]
+        public string PhoneNumber { get; set; }
+    }
+}
